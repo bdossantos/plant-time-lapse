@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+DEBUG=${DEBUG:=0}
+[[ $DEBUG -eq 1 ]] && set -o xtrace
+
+PHOTOS_DIRECTORY="${HOME}/plant-time-lapse/photos"
+PHOTO_OF_THE_DAY="${PHOTOS_DIRECTORY}/$(date +"%Y-%m-%d_%H%M").jpg"
+SLACK_CHANNELS="${SLACK_CHANNELS:=#general}"
+SLACK_TOKEN=${SLACK_TOKEN:-}
+
+mkdir -p "$PHOTOS_DIRECTORY"
+chmod 0700 "$PHOTOS_DIRECTORY"
+
+raspistill -vf -hf -o "${PHOTO_OF_THE_DAY}"
+
+curl \
+  -F file=@"${PHOTO_OF_THE_DAY}" \
+  -F channels="${SLACK_CHANNELS}" \
+  -F token="${SLACK_TOKEN}" \
+  https://slack.com/api/files.upload
