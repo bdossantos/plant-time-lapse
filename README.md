@@ -16,3 +16,9 @@ cd $HOME
 git clone https://github.com/bdossantos/plant-time-lapse
 env SLACK_TOKEN='xxx' $HOME/plant-time-lapse/shoot
 ```
+
+## Cron job
+
+```
+30 16 * * * bash -c "env SLACK_TOKEN='xxx' $HOME/plant-time-lapse/shoot"
+```
