@@ -7,7 +7,7 @@ set -o nounset
 DEBUG=${DEBUG:=0}
 [[ $DEBUG -eq 1 ]] && set -o xtrace
 
-PHOTOS_DIRECTORY="${HOME}/plant-time-lapse/photos"
+PHOTOS_DIRECTORY="${PHOTOS_DIRECTORY:=${HOME}/plant-time-lapse/photos}"
 PHOTO_OF_THE_DAY="${PHOTOS_DIRECTORY}/$(date +"%Y-%m-%d_%H%M").jpg"
 SLACK_CHANNELS="${SLACK_CHANNELS:=#general}"
 SLACK_TOKEN=${SLACK_TOKEN:-}
